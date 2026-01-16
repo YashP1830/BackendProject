@@ -1,11 +1,12 @@
-import express from express
-import cors from cors
-import CookieParser from CookieParser
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+
 const app=express()
 
 app.use(cors({
     origin:process.env.CORS_ORIGIN,
-    Credentials:true
+    credentials:true
 }))
 
 app.use(express.json({
@@ -18,6 +19,14 @@ app.use(express.urlencoded({
 
 app.use(express.static("public"))
 
-app.use(CookieParser())
+app.use(cookieParser());
+
+
+// importing routes
+import userrouter from "./routes/user.routes.js"
+
+//routes decleration    
+app.use("/api/v1/users",userrouter)
+
 
 export {app} 
